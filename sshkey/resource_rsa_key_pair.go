@@ -19,8 +19,7 @@ func (r resourceRSAKeyPairType) GetSchema(ctx context.Context) (tfsdk.Schema, di
 			},
 			"bits": {
 				Type:     types.NumberType,
-				Optional: true,
-				Computed: true,
+				Required: true,
 				Validators: []tfsdk.AttributeValidator{
 					rsaKeyPairBitsValidator{},
 				},
