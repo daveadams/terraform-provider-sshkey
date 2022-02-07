@@ -1,7 +1,7 @@
 TEST?=$$(go list ./... | grep -v 'vendor')
 NAME=sshkey
 BINARY=terraform-provider-${NAME}
-VERSION=0.1
+VERSION=0.1.0
 
 default: build
 
