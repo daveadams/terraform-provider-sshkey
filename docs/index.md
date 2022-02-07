@@ -5,7 +5,7 @@ description: |-
   Terraform provider for generating SSH key pairs.
 ---
 
-# sshkey Provider
+# Provider: sshkey
 
 The `sshkey` Terraform provider generates SSH key pairs. Only RSA-type keys are
 currently supported.

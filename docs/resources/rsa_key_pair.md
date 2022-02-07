@@ -5,7 +5,7 @@ description: |-
   The rsa_key_pair resource generates an RSA key pair.
 ---
 
-# Resource `sshkey_rsa_key_pair`
+# Resource: sshkey_rsa_key_pair
 
 The `sshkey_rsa_key_pair` resource generates an RSA key pair with the specified
 number of bits.
