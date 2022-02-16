@@ -1,8 +1,7 @@
 terraform {
   required_providers {
     sshkey = {
-      version = "0.1.1"
-      source  = "daveadams/sshkey"
+      source = "daveadams/sshkey"
     }
   }
 }

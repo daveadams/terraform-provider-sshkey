@@ -7,8 +7,8 @@ description: |-
 
 # Provider: sshkey
 
-The `sshkey` Terraform provider generates SSH key pairs. Only RSA-type keys are
-currently supported.
+The `sshkey` Terraform provider generates SSH key pairs. Only RSA and ED25519
+keys are currently supported.
 
 ## Example Usage
 

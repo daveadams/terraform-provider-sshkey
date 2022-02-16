@@ -37,7 +37,8 @@ func (p *sshkeyProvider) Configure(ctx context.Context, req tfsdk.ConfigureProvi
 
 func (p *sshkeyProvider) GetResources(_ context.Context) (map[string]tfsdk.ResourceType, diag.Diagnostics) {
 	return map[string]tfsdk.ResourceType{
-		"sshkey_rsa_key_pair": resourceRSAKeyPairType{},
+		"sshkey_rsa_key_pair":     resourceRSAKeyPairType{},
+		"sshkey_ed25519_key_pair": resourceED25519KeyPairType{},
 	}, nil
 }
 
