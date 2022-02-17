@@ -18,17 +18,20 @@ resource "sshkey_rsa_key_pair" "small" {
 }
 
 resource "sshkey_rsa_key_pair" "medium" {
-  bits = 2048
+  bits    = 2048
+  comment = "medium@example.com"
 }
 
 resource "sshkey_rsa_key_pair" "large" {
-  bits = 4096
+  bits    = 4096
+  comment = "large@example.com"
 }
 ```
 
-## Argument Reference
+## Arguments Reference
 
 - `bits` - (Required) Bit size for RSA key. Must be one of 1024, 2048, or 4096.
+- `comment` - (Optional) Key comment to appear in the public key serialization.
 
 ## Attributes Reference
 

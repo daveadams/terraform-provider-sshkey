@@ -40,9 +40,8 @@ func (k *ed25519KeyPair) PrivateKeyPEM() (string, error) {
 
 	return string(pem.EncodeToMemory(
 		&pem.Block{
-			Type:    "OPENSSH PRIVATE KEY",
-			Headers: nil,
-			Bytes:   keyBytes,
+			Type:  "OPENSSH PRIVATE KEY",
+			Bytes: keyBytes,
 		}),
 	), nil
 }

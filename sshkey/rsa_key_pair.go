@@ -40,9 +40,8 @@ func generateRSAKeyPair(bits int) (*rsaKeyPair, error) {
 func (k *rsaKeyPair) PrivateKeyPEM() string {
 	return string(pem.EncodeToMemory(
 		&pem.Block{
-			Type:    "OPENSSH PRIVATE KEY",
-			Headers: nil,
-			Bytes:   x509.MarshalPKCS1PrivateKey(k.privateKey),
+			Type:  "OPENSSH PRIVATE KEY",
+			Bytes: x509.MarshalPKCS1PrivateKey(k.privateKey),
 		}),
 	)
 }
