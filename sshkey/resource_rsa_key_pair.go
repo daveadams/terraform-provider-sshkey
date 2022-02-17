@@ -2,6 +2,7 @@ package sshkey
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
@@ -26,6 +27,10 @@ func (r resourceRSAKeyPairType) GetSchema(ctx context.Context) (tfsdk.Schema, di
 				PlanModifiers: []tfsdk.AttributePlanModifier{
 					tfsdk.RequiresReplace(),
 				},
+			},
+			"comment": {
+				Type:     types.StringType,
+				Optional: true,
 			},
 			"private_key_pem": {
 				Type:      types.StringType,
@@ -69,11 +74,16 @@ func (r resourceRSAKeyPair) Create(ctx context.Context, req tfsdk.CreateResource
 		return
 	}
 
+	// NOTE: Leaves a trailing space in the public key content if no comment is
+	// specified, to match the behavior of `ssh-keygen -t rsa -C ''` and the behavior
+	// of the ed25519_key_pair resource.
+	renderedPublicKey := fmt.Sprintf("%s %s", key.PublicKey(), plan.Comment.Value)
 	result := RSAKeyPair{
 		ID:                types.String{Value: key.FingerprintSHA256()},
 		Bits:              plan.Bits,
+		Comment:           plan.Comment,
 		PrivateKeyPEM:     types.String{Value: key.PrivateKeyPEM()},
-		PublicKey:         types.String{Value: key.PublicKey()},
+		PublicKey:         types.String{Value: renderedPublicKey},
 		FingerprintMD5:    types.String{Value: key.FingerprintMD5()},
 		FingerprintSHA256: types.String{Value: key.FingerprintSHA256()},
 	}

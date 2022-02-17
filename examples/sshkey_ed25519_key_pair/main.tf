@@ -6,18 +6,24 @@ terraform {
   }
 }
 
-resource "sshkey_ed25519_key_pair" "example" {
-  count = 2
+resource "sshkey_ed25519_key_pair" "no_comment" {}
+
+resource "sshkey_ed25519_key_pair" "with_comment" {
+  comment = "admin@example.com"
 }
 
-output "example_public_keys" {
-  value = sshkey_ed25519_key_pair.example[*].public_key
+output "no_comment" {
+  value = {
+    public_key         = sshkey_ed25519_key_pair.no_comment.public_key
+    md5_fingerprint    = sshkey_ed25519_key_pair.no_comment.fingerprint_md5
+    sha256_fingerprint = sshkey_ed25519_key_pair.no_comment.fingerprint_sha256
+  }
 }
 
-output "example_fingerprints_md5" {
-  value = sshkey_ed25519_key_pair.example[*].fingerprint_md5
-}
-
-output "example_fingerprints_sha256" {
-  value = sshkey_ed25519_key_pair.example[*].fingerprint_sha256
+output "with_comment" {
+  value = {
+    public_key         = sshkey_ed25519_key_pair.with_comment.public_key
+    md5_fingerprint    = sshkey_ed25519_key_pair.with_comment.fingerprint_md5
+    sha256_fingerprint = sshkey_ed25519_key_pair.with_comment.fingerprint_sha256
+  }
 }

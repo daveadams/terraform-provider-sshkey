@@ -1,6 +1,8 @@
 package sshkey
 
 import (
+	"strings"
+
 	"crypto/ed25519"
 	"crypto/rand"
 	"crypto/x509"
@@ -46,7 +48,8 @@ func (k *ed25519KeyPair) PrivateKeyPEM() (string, error) {
 }
 
 func (k *ed25519KeyPair) PublicKey() string {
-	return string(ssh.MarshalAuthorizedKey(k.publicKey))
+	// we have to trim off the trailing newline that this function unhelpfully adds
+	return strings.TrimSpace(string(ssh.MarshalAuthorizedKey(k.publicKey)))
 }
 
 func (k *ed25519KeyPair) FingerprintMD5() string {
