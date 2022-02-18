@@ -5,9 +5,10 @@ import (
 
 	"crypto/ed25519"
 	"crypto/rand"
-	"crypto/x509"
 	"encoding/pem"
 	"golang.org/x/crypto/ssh"
+
+	"github.com/mikesmitty/edkey"
 )
 
 type ed25519KeyPair struct {
@@ -33,15 +34,13 @@ func generateED25519KeyPair() (*ed25519KeyPair, error) {
 }
 
 func (k *ed25519KeyPair) PrivateKeyPEM() (string, error) {
-	keyBytes, err := x509.MarshalPKCS8PrivateKey(k.privateKey)
-	if err != nil {
-		return "", err
-	}
-
+	// We have to use https://github.com/mikesmitty/edkey because
+	// marshalling ed25519 private keys in SSH-friendly PEM format
+	// is still?! not part of the golang stdlib.
 	return string(pem.EncodeToMemory(
 		&pem.Block{
 			Type:  "OPENSSH PRIVATE KEY",
-			Bytes: keyBytes,
+			Bytes: edkey.MarshalED25519PrivateKey(k.privateKey),
 		}),
 	), nil
 }

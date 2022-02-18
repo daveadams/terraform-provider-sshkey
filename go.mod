@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/hashicorp/terraform-plugin-framework v0.5.0
+	github.com/mikesmitty/edkey v0.0.0-20170222072505-3356ea4e686a
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
 )
 
